@@ -1,10 +1,9 @@
-*NOTE:* This file is a template that you can use to create the README for your project. The *TODO* comments below will highlight the information you should be sure to include.
-
 # Your Project Title Here
 
 *TODO:* Write a short introduction to your project.
 This project serves as a capstone project for my
 NER and Relation Extraction from EHR. This repository includes code for NER and RE methods on EHR records. 
+<img width="997" alt="Screenshot 2022-05-12 at 15 11 20" src="https://user-images.githubusercontent.com/24227297/168095265-2ddbcfc0-497c-4a1e-a1d5-fbb4be79d1b6.png">
 
 ## Project Set Up and Installation
 
