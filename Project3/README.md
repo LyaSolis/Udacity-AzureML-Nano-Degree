@@ -41,6 +41,8 @@ Access to [n2c2 2018](https://portal.dbmi.hms.harvard.edu/projects/n2c2-2018-t2/
 
 [Adverse Drug Events (ADE) Corpus](http://lavis.cs.hs-rm.de/storage/spert/public/datasets/ade/) is available without registration. I downloaded these json files locally and then uploaded and registered them in my AzureML Datasets.
 
+<img width="1688" alt="Screenshot 2022-05-13 at 08 06 58" src="https://user-images.githubusercontent.com/24227297/168256833-f916e954-a25f-4a06-8036-8dead979fdb4.png">
+
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 
