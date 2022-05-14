@@ -43,6 +43,17 @@ Access to [n2c2 2018](https://portal.dbmi.hms.harvard.edu/projects/n2c2-2018-t2/
 
 <img width="1688" alt="Screenshot 2022-05-13 at 08 06 58" src="https://user-images.githubusercontent.com/24227297/168256833-f916e954-a25f-4a06-8036-8dead979fdb4.png">
 
+Notebook [generate_data.ipynb](https://github.com/LyaSolis/Udacity-AzureML-Nano-Degree/blob/main/Project3/generate_data.ipynb) shows how data was preprocessed for training.
+
+<img width="1132" alt="Screenshot 2022-05-14 at 11 24 03" src="https://user-images.githubusercontent.com/24227297/168423191-7407569a-cd0e-44b9-9072-8fd79b2a2c96.png">
+
+<img width="1132" alt="Screenshot 2022-05-14 at 11 24 03" src="https://user-images.githubusercontent.com/24227297/168423213-5e3856a8-bbf3-4a60-bc2b-6043270dc2a5.png">
+
+Processed datasets were registered in datastore:
+
+<img width="1437" alt="Screenshot 2022-05-14 at 11 58 02" src="https://user-images.githubusercontent.com/24227297/168423168-b4f4f2c6-d984-4fc2-8634-4aa91bff961d.png">
+
+
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 
