@@ -2,6 +2,19 @@
 
 *TODO:* Write a short introduction to your project.
 This project serves as a capstone project for my
+
+
+Classification of text documents using sparse features
+
+This is documentation for an old release of Scikit-learn (version 0.19). Try the latest stable release (version 1.1) or development (unstable) versions.
+
+Classification of text documents using sparse features
+This is an example showing how scikit-learn can be used to classify documents by topics using a bag-of-words approach. This example uses a scipy.sparse matrix to store the features and demonstrates various classifiers that can efficiently handle sparse matrices.
+
+The dataset used in this example is the 20 newsgroups dataset. It will be automatically downloaded, then cached.
+
+The bar plot indicates the accuracy, training time (normalized) and test time (normalized) of each classifier.
+
 NER and Relation Extraction from EHR. This repository includes code for NER and RE methods on EHR records. 
 <img width="997" alt="Screenshot 2022-05-12 at 15 11 20" src="https://user-images.githubusercontent.com/24227297/168095265-2ddbcfc0-497c-4a1e-a1d5-fbb4be79d1b6.png">
 
