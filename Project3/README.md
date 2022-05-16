@@ -6,17 +6,12 @@ This project serves as a capstone project for my
 
 Classification of text documents using sparse features
 
-This is documentation for an old release of Scikit-learn (version 0.19). Try the latest stable release (version 1.1) or development (unstable) versions.
 
 Classification of text documents using sparse features
-This is an example showing how scikit-learn can be used to classify documents by topics using a bag-of-words approach. This example uses a scipy.sparse matrix to store the features and demonstrates various classifiers that can efficiently handle sparse matrices.
+This is an example showing how scikit-learn can be used to classify documents by topics using a bag-of-words approach. 
 
 The dataset used in this example is the 20 newsgroups dataset. It will be automatically downloaded, then cached.
 
-The bar plot indicates the accuracy, training time (normalized) and test time (normalized) of each classifier.
-
-NER and Relation Extraction from EHR. This repository includes code for NER and RE methods on EHR records. 
-<img width="997" alt="Screenshot 2022-05-12 at 15 11 20" src="https://user-images.githubusercontent.com/24227297/168095265-2ddbcfc0-497c-4a1e-a1d5-fbb4be79d1b6.png">
 
 ## Project Set Up and Installation
 
@@ -26,27 +21,20 @@ NER and Relation Extraction from EHR. This repository includes code for NER and 
 
 ### Overview
 
-[2018 Track 2: Adverse Drug Events and Medication Extraction in EHRs](https://portal.dbmi.hms.harvard.edu/projects/n2c2-2018-t2/)  
+#### The 20 newsgroups text dataset[^1]
+The [20 newsgroups dataset](https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html) comprises around 18000 newsgroups posts on 20 topics split in two subsets (train and test). 
 
-The data consists of discharge summaries of nearly ~500 discharge summaries drawn from the MIMIC-III clinical care database, annotated by domain experts with entity tags and attributes were used to indicate the presence of drug and ADE information.
+Scikit-learn module contains two loaders: 
+  * sklearn.datasets.fetch_20newsgroups (returns a list of the raw texts that can be fed to text feature extractors such as sklearn.feature_extraction.text.CountVectorizer with custom parameters so as to extract feature vectors)
+  * sklearn.datasets.fetch_20newsgroups_vectorized (returns ready-to-use features, i.e., it is not necessary to use a feature extractor) 
 
-[Adverse Drug Events (ADE) Corpus](https://paperswithcode.com/dataset/ade-corpus)
-
-A benchmark corpus to support the automatic extraction of drug-related adverse effects from medical case reports.
+[^1]:Source https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html
 
 ### Task
 
 This NLP task aims to automatically discover drug to adverse event (ADE) relations in clinical narratives and consists of three subtasks:
 
-  * Concepts: Identifying drug names, dosages, durations and other entities.
-  * Relations: Identifying relations of drugs with adverse drugs events (ADEs)[^1] and other entities given gold standard entities.
-  * End-to-end: Identifying relations of drugs with ADEs and other entities on system predicted entities.
 
-An adverse drug event (ADE) as "an injury resulting from medical intervention related to a drug".[^1]
-
-As part of data preprocessing step, we augment **n2c2 2018** dataset to include a sample of **ADE corpus** dataset. 
-
-[^1]:Definition by the World Health Organization (WHO).
 
 ### Access
 
