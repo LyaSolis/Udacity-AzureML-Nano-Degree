@@ -1,16 +1,12 @@
-# Your Project Title Here
-
-*TODO:* Write a short introduction to your project.
-This project serves as a capstone project for my
+# Text Classification With AzureML
 
 
-Classification of text documents using sparse features
+This project serves as a capstone project for my Udacity AzureML Nano Degree. 
+We will train scikit-learn classification models using Azure Machine Learning automated hyperparameter tuning and Azure AutoML Python SDK. 
 
+We will then select the better model, deploy it as a webservice, and interact with it by posting text queries and receiving predicted label for the text. 
 
-Classification of text documents using sparse features
-This is an example showing how scikit-learn can be used to classify documents by topics using a bag-of-words approach. 
-
-The dataset used in this example is the 20 newsgroups dataset. It will be automatically downloaded, then cached.
+<img width="753" alt="Screenshot 2022-05-16 at 18 05 58" src="https://user-images.githubusercontent.com/24227297/168646045-1c9abdfc-7ce6-44d8-8d1b-29ac02be3ee4.png">
 
 ## Dataset
 
@@ -158,7 +154,8 @@ Scikit-learn Pipeline Steps:
 
 
 ### Results
-*TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
+
+How could you have improved it?
 ```
 run_algorithm: LogisticRegression,
 Accuracy: 0.863
@@ -181,10 +178,7 @@ Screenshot of the best model trained with it's parameters:
 <img width="1129" alt="Screenshot 2022-05-16 at 10 30 54" src="https://user-images.githubusercontent.com/24227297/168563059-b0b5aa7b-7438-4399-a420-5ed3c11c0992.png">
 
 ## Screen Recording
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
+
 - A working model
 - Demo of the deployed  model
 - Demo of a sample request sent to the endpoint and its response
-
-## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
