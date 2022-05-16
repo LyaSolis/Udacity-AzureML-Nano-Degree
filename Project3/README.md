@@ -12,11 +12,6 @@ This is an example showing how scikit-learn can be used to classify documents by
 
 The dataset used in this example is the 20 newsgroups dataset. It will be automatically downloaded, then cached.
 
-
-## Project Set Up and Installation
-
-*OPTIONAL:* If your project has any special installation steps, this is where you should put it. To turn this project into a professional portfolio project, you are encouraged to explain how to set up this project in AzureML.
-
 ## Dataset
 
 ### Overview
