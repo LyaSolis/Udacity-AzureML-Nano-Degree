@@ -159,6 +159,10 @@ Scikit-learn Pipeline Steps:
 
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
+```
+run_algorithm: LogisticRegression,
+Accuracy: 0.863
+```
 
 `RunDetails` widget output: 
 
