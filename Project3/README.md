@@ -103,7 +103,12 @@ automl_config = AutoMLConfig(
   * Blocked_models parameter to exclude some models that can take a longer time to train on some text datasets. If we were to remove models from the blocked_models list, experiment_timeout_hours parameter value would need to be used and increased in order to allow sufficient time to improve the results.
 
 ### Results
-*TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
+
+```
+run_preprocessor: StandardScalerWrapper,
+run_algorithm: LogisticRegression,
+Accuracy: 0.91198
+```
 
 `RunDetails` widget results:
 
