@@ -168,11 +168,34 @@ Scikit-learn Pipeline Steps:
   * Submit hyperparameter tuning run
   * Identify the best performing configuration and hyperparameter values and save them
 
+```
+ps = RandomParameterSampling(
+    {
+        'learning_rate': uniform(0.05, 0.1),
+        'batch_size': choice(16, 32, 64, 128)
+    }
+)
+
+# Specify a Policy
+policy = BanditPolicy(slack_factor = 0.1, evaluation_interval=1, delay_evaluation=5)
+```
+
+```
+HyperDriveConfig(run_config=src,
+                 hyperparameter_sampling=ps,
+                 policy=policy,
+                 primary_metric_name='Accuracy',
+                 primary_metric_goal=PrimaryMetricGoal.MAXIMIZE,
+                 max_total_runs=10
+                 )
+```
+
 Hyperparameters for HyperDriveConfig were:
   * primary metric "accuracy" - ratio of predictions that exactly match the true class labels.
   * primary metric goal "MAXIMIZE" - used to determine whether a higher value for a metric is better or worse. Metric goals are used when comparing runs based on the primary metric, in this case we maximize accuracy.
   * parameter sampler (RandomParameterSampling - supports discrete hyperparameters, early termination of low-performance runs. It's quicker and cheaper.)
   * early termination policy (BanditPolicy - starting at evaluation interval 5. Any run whose best metric is less than (1/(1+0.1) or 91% of the best performing run will be terminated.)
+  * maximum number of runs to create - 10. This is the upper bound; there may be fewer runs when the sample space is smaller than this value. 
 
 
 ### Results
