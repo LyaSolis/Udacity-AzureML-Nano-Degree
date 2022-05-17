@@ -151,6 +151,7 @@ Training algorithm:
     "spec_class": "sklearn"
 }
 ```
+<img width="1022" alt="Screenshot 2022-05-17 at 16 35 00" src="https://user-images.githubusercontent.com/24227297/168851350-9700ff04-849d-47f4-b54d-830f93bfc032.png">
 
 ## Hyperparameter Tuning
 
