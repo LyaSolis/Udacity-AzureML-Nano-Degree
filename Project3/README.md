@@ -221,7 +221,7 @@ In the screen shot below we post query using AzureML UI. Model can also be queri
 
 ## Screen Recording
 
-[Screen Cast](https://youtu.be/kxflSgrL5mE)
+[Screen Cast Link](https://youtu.be/kxflSgrL5mE)
 
 - A working model
 - Demo of the deployed  model
