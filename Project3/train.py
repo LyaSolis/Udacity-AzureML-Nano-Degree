@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
-#from sklearn.linear_model import LogisticRegression
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import train_test_split
@@ -95,7 +94,6 @@ def main():
     y_test = data_test.target
     
     model = OneVsRestClassifier(LinearSVC(C=args.C, max_iter=args.max_iter)).fit(x_train, y_train)
-    #model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
