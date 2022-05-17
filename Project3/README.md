@@ -4,7 +4,11 @@
 This project serves as a capstone project for my Udacity AzureML Nano Degree. 
 We will train scikit-learn classification models using Azure Machine Learning automated hyperparameter tuning and Azure AutoML Python SDK. 
 
-We will then select the better model, deploy it as a webservice, and interact with it by posting text queries and receiving predicted label for the text. 
+The goal of the model is to classify what "group" the post belongs to. For example, a correct model prediction for post `"I have fever and head ache, took paracitamol but it isn't helping"` would be group label **"sci.med"**. 
+
+In real life scenario, the model can be used to filter and extract only posts related to a certain domain, and then perform further manipulations with the data, for example entity extractions for medications. We would not want to feed a huge dataset containing unrelated posts into a NER model.
+
+Once the model is trained and evaluated, we will compare both models and select the better one, deploy it as a webservice, and interact with it by posting text queries and receiving predicted label for the text. 
 
 
 <img width="753" alt="Screenshot 2022-05-16 at 18 05 58" src="https://user-images.githubusercontent.com/24227297/168646045-1c9abdfc-7ce6-44d8-8d1b-29ac02be3ee4.png">
@@ -157,16 +161,28 @@ Scikit-learn Pipeline Steps:
   * Configure workspace and create an Experiment to hold our work
   * Provision a ComputeTarget - 'STANDARD_NC6' GPU VM with max 1 nodes (quota limit).
   * Create a train.py script, add: hyperparameter arguments (OneVsRestClassifier model, learning_rate and batch_size), data load, format data and train/test split, model save steps.
-  * Define a runtime Environment for training and specify:
-    1. parameter sampler (RandomParameterSampling - supports discrete hyperparameters, early termination of low-performance runs. It's quicker and cheaper.)
-    2. early termination policy (BanditPolicy - starting at evaluation interval 5. Any run whose best metric is less than (1/(1+0.1) or 91% of the best performing run will be terminated.)
-    3. estimator for the train.py script
-    4. HyperDriveConfig using the estimator, hyperparameter sampler, and policy
+  * Define a runtime Environment for training:
+    1. specify hyperparameters.
+    2. estimator for the train.py script
+    3. HyperDriveConfig using the estimator, hyperparameter sampler, and policy
   * Submit hyperparameter tuning run
   * Identify the best performing configuration and hyperparameter values and save them
 
+Hyperparameters for HyperDriveConfig were:
+  * primary metric "accuracy" - ratio of predictions that exactly match the true class labels.
+  * primary metric goal "MAXIMIZE" - used to determine whether a higher value for a metric is better or worse. Metric goals are used when comparing runs based on the primary metric, in this case we maximize accuracy.
+  * parameter sampler (RandomParameterSampling - supports discrete hyperparameters, early termination of low-performance runs. It's quicker and cheaper.)
+  * early termination policy (BanditPolicy - starting at evaluation interval 5. Any run whose best metric is less than (1/(1+0.1) or 91% of the best performing run will be terminated.)
+
 
 ### Results
+
+```
+Accuracy: 0.87017099430019
+learning rate: 200
+keep probability: 64
+batch size: 0.09615641690991594
+```
 
 OneVsRestClassifier strategy fits one classifier per class, and for each classifier, the class is fitted against all the other classes.  
 The advantage of this approach is its computational efficiency (only n_classes classifiers are needed) and interpretability. Because each class is represented by only one classifier, inspecting the classifier gives insight into it's corresponding class. 
@@ -175,13 +191,24 @@ This is the most commonly used strategy and is a fair default choice.[^2]
 If we wanted to attempt to improve the model's performance, we could try GridSearchCV with scikit-multilearn's BinaryRelevance classifier. 
 Binary Relevance creates L single-label classifiers, one per label(1,0). The best classifier set is the BinaryRelevance class instance in best_estimator_ property of GridSearchCV.[^3]
 
-
 ```
-Accuracy: 0.87017099430019
-learning rate: 200
-keep probability: 64
-batch size: 0.09615641690991594
-```
+"arguments": [
+            "--C",
+            "1",
+            "--max_iter",
+            "200",
+            "--batch_size",
+            "64",
+            "--learning_rate",
+            "0.09615641690991594"
+        ]
+ ```
+ Where:
+ 
+   * '--C' - Inverse of regularization strength. Smaller values cause stronger regularization
+   * '--max_iter' - Maximum number of iterations to converge
+   * '--batch_size' = Number of datapoints in each mini-batch
+   * '--learning_rate' - Learning rate
 
 `RunDetails` widget output: 
 
