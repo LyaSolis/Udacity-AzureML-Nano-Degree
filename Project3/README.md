@@ -6,18 +6,25 @@ We will train scikit-learn classification models using Azure Machine Learning au
 
 We will then select the better model, deploy it as a webservice, and interact with it by posting text queries and receiving predicted label for the text. 
 
+
 <img width="753" alt="Screenshot 2022-05-16 at 18 05 58" src="https://user-images.githubusercontent.com/24227297/168646045-1c9abdfc-7ce6-44d8-8d1b-29ac02be3ee4.png">
+
 
 ## Dataset
 
 ### Overview
 
 #### The 20 newsgroups text dataset[^1]
+
+
 The [20 newsgroups dataset](https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html) comprises around 18000 newsgroups posts on 20 topics split in two subsets (train and test). 
+
 
 Here is an example of text from the dataset:
 
+
 <img width="727" alt="Screenshot 2022-05-16 at 10 55 52" src="https://user-images.githubusercontent.com/24227297/168568064-6a001c2c-23b8-47f5-b85f-ca243d41544e.png">
+
 
 ### Task
 
@@ -47,7 +54,8 @@ In addition, to remove this information leakage we will use a parameter called `
 
 `remove = ("headers", "footers", "quotes")`
 
-[^1]:Source https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html
+
+[^1]:https://scikit-learn.org/0.19/datasets/twenty_newsgroups.html
 
 
 ## Automated ML
@@ -108,16 +116,21 @@ Accuracy: 0.91198
 
 `RunDetails` widget results:
 
+
 <img width="912" alt="Screenshot 2022-05-16 at 10 16 47" src="https://user-images.githubusercontent.com/24227297/168560492-0752ba8b-2517-4699-815d-f410d0122e79.png">
 
 
 <img width="912" alt="Screenshot 2022-05-16 at 10 17 19" src="https://user-images.githubusercontent.com/24227297/168560459-9544821d-376b-4e7c-a6e3-0a0f1074d067.png">
 
+
 Screenshot of the best model trained with it's parameters:
+
 
 <img width="1109" alt="Screenshot 2022-05-16 at 10 24 26" src="https://user-images.githubusercontent.com/24227297/168561854-f9000b92-63ad-480e-98e3-5ef37b3078b2.png">
 
+
 Training algorithm:
+
 ```
 {
     "class_name": "LogisticRegression",
@@ -143,7 +156,7 @@ Scikit-learn Pipeline Steps:
 
   * Configure workspace and create an Experiment to hold our work
   * Provision a ComputeTarget - 'STANDARD_NC6' GPU VM with max 1 nodes (quota limit).
-  * Create a train.py script, add: hyperparameter arguments (Logistic Regression model, learning_rate and batch_size), data load, format data and train/test split, model save steps.
+  * Create a train.py script, add: hyperparameter arguments (OneVsRestClassifier model, learning_rate and batch_size), data load, format data and train/test split, model save steps.
   * Define a runtime Environment for training and specify:
     1. parameter sampler (RandomParameterSampling - supports discrete hyperparameters, early termination of low-performance runs. It's quicker and cheaper.)
     2. early termination policy (BanditPolicy - starting at evaluation interval 5. Any run whose best metric is less than (1/(1+0.1) or 91% of the best performing run will be terminated.)
@@ -155,25 +168,54 @@ Scikit-learn Pipeline Steps:
 
 ### Results
 
-How could you have improved it?
+OneVsRestClassifier strategy fits one classifier per class, and for each classifier, the class is fitted against all the other classes.  
+The advantage of this approach is its computational efficiency (only n_classes classifiers are needed) and interpretability. Because each class is represented by only one classifier, inspecting the classifier gives insight into it's corresponding class. 
+This is the most commonly used strategy and is a fair default choice.[^2]
+
+If we wanted to attempt to improve the model's performance, we could try GridSearchCV with scikit-multilearn's BinaryRelevance classifier. 
+Binary Relevance creates L single-label classifiers, one per label(1,0). The best classifier set is the BinaryRelevance class instance in best_estimator_ property of GridSearchCV.[^3]
+
+
 ```
-run_algorithm: LogisticRegression,
-Accuracy: 0.863
+Accuracy: 0.87017099430019
+learning rate: 200
+keep probability: 64
+batch size: 0.09615641690991594
 ```
 
 `RunDetails` widget output: 
 
-<img width="900" alt="Screenshot 2022-05-16 at 10 34 50" src="https://user-images.githubusercontent.com/24227297/168563664-3aa18d08-248c-41e4-a16b-7194cf4afb15.png">
+
+<img width="1019" alt="Screenshot 2022-05-17 at 06 34 05" src="https://user-images.githubusercontent.com/24227297/168736447-88fb9fc3-ebcc-4436-b384-a653239440bf.png">
+
 
 Screenshot of the best model trained with it's parameters:
 
-<img width="1332" alt="Screenshot 2022-05-16 at 10 39 40" src="https://user-images.githubusercontent.com/24227297/168564957-f76147c6-cc99-4134-83c6-54f2e87f5700.png">
+
+<img width="1329" alt="Screenshot 2022-05-17 at 06 35 22" src="https://user-images.githubusercontent.com/24227297/168736585-aca154d7-d169-4f5a-a501-5ef6f7263739.png">
+
+
+[^2]:https://scikit-learn.org/0.15/modules/multiclass.html
+[^3]:https://stackoverflow.com/questions/33783374/sklearn-evaluate-performance-of-each-classifier-of-onevsrestclassifier-inside-g
+
 
 ## Model Deployment
-*TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+Overview of the deployed model and instructions on how to query the endpoint with a sample input.
+Best model generated from AutoML experiment is deployed in Azure Container Instance (ACI),  key-based authentication enabled (by default it's disabled in ACI service; token-based auth isn't supported in ACI).
+Application Insights enabled - this Azure service provides key facts about an application, detects anomalies and visualizes performance of the deployment. 
+
+
 <img width="1129" alt="Screenshot 2022-05-16 at 10 28 51" src="https://user-images.githubusercontent.com/24227297/168562519-dfbd2e70-3687-4c5c-a10f-a7f9492bbf5b.png">
 
+
+To query the model we will use a sample text below, it was labelled "1"
+
+
 <img width="813" alt="Screenshot 2022-05-16 at 10 31 33" src="https://user-images.githubusercontent.com/24227297/168563085-ec2c5990-8052-48ad-81a9-6b5f83a1640f.png">
+
+
+In the screen shot below we post query using AzureML UI. Model can also be queried using CMD and python script, or via Jupyter Notebook (example provided in [automl.ipynb](https://github.com/LyaSolis/Udacity-AzureML-Nano-Degree/blob/main/Project3/automl.ipynb)).
+
 
 <img width="1129" alt="Screenshot 2022-05-16 at 10 30 54" src="https://user-images.githubusercontent.com/24227297/168563059-b0b5aa7b-7438-4399-a420-5ed3c11c0992.png">
 
